@@ -28,7 +28,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.FeedLauncher;
-import frc.robot.commands.maddie;
+import frc.robot.commands.Autos;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -53,7 +53,7 @@ import com.revrobotics.ColorSensorV3.Register;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-   private final Field2d field;
+
 
 
   // The robot's subsystems
@@ -65,26 +65,13 @@ public class RobotContainer {
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 FeedLauncher m_feedlauncher = new FeedLauncher();
-maddie madison = new maddie();
+Autos auto = new Autos();
 //private final SendableChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-  field = new Field2d();
-        SmartDashboard.putData("Field", field);
-         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
-            // Do whatever you want with the pose here
-            field.setRobotPose(pose);
-        });
-        PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-            // Do whatever you want with the pose here
-            field.getObject("target pose").setPose(pose);
-        });
-        PathPlannerLogging.setLogActivePathCallback((poses) -> {
-            // Do whatever you want with the poses here
-            field.getObject("path").setPoses(poses);
-        });
+
 
     // NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
     //     NamedCommands.registerCommand("exampleCommand",null );
@@ -221,6 +208,6 @@ maddie madison = new maddie();
 //PathPlannerPath path = PathPlannerPath.fromPathFile("route");
 //return new PathPlannerAuto("path");
 
-return /*autoChooser.getSelected();*/ madison.getSelected();
+return /*autoChooser.getSelected();*/ auto.getSelected();
   }
 }
