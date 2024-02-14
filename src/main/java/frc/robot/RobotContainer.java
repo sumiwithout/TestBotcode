@@ -28,6 +28,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.FeedLauncher;
+import frc.robot.commands.maddie;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -64,7 +65,8 @@ public class RobotContainer {
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 FeedLauncher m_feedlauncher = new FeedLauncher();
-private final SendableChooser<Command> autoChooser;
+maddie madison = new maddie();
+//private final SendableChooser<Command> autoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -84,16 +86,16 @@ private final SendableChooser<Command> autoChooser;
             field.getObject("path").setPoses(poses);
         });
 
-    NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
-        NamedCommands.registerCommand("exampleCommand",null );
-        NamedCommands.registerCommand("someOtherCommand", null );
+    // NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
+    //     NamedCommands.registerCommand("exampleCommand",null );
+    //     NamedCommands.registerCommand("someOtherCommand", null );
         
-          configureButtonBindings();
-          autoChooser = AutoBuilder.buildAutoChooser("route");
+    //       configureButtonBindings();
+    //       autoChooser = AutoBuilder.buildAutoChooser("route");
     
-        SmartDashboard.putData("Auto Chooser", autoChooser);
-        Command fb = new PathPlannerAuto("route");
-        autoChooser.addOption("Forward back", null);
+    //     SmartDashboard.putData("Auto Chooser", autoChooser);
+    //     Command fb = new PathPlannerAuto("route");
+    //     autoChooser.addOption("Forward back", null);
       
 
     // Configure default commands
@@ -219,6 +221,6 @@ private final SendableChooser<Command> autoChooser;
 //PathPlannerPath path = PathPlannerPath.fromPathFile("route");
 //return new PathPlannerAuto("path");
 
-return autoChooser.getSelected();
+return /*autoChooser.getSelected();*/ madison.getSelected();
   }
 }
