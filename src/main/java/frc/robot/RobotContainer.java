@@ -15,6 +15,9 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -38,6 +41,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 import com.revrobotics.ColorSensorV3.Register;
 
@@ -48,6 +52,7 @@ import com.revrobotics.ColorSensorV3.Register;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+   private final Field2d field;
 
 
   // The robot's subsystems
@@ -59,14 +64,38 @@ public class RobotContainer {
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
 FeedLauncher m_feedlauncher = new FeedLauncher();
+private final SendableChooser<Command> autoChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-  
+  field = new Field2d();
+        SmartDashboard.putData("Field", field);
+         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
+            // Do whatever you want with the pose here
+            field.setRobotPose(pose);
+        });
+        PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
+            // Do whatever you want with the pose here
+            field.getObject("target pose").setPose(pose);
+        });
+        PathPlannerLogging.setLogActivePathCallback((poses) -> {
+            // Do whatever you want with the poses here
+            field.getObject("path").setPoses(poses);
+        });
+
     NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
         NamedCommands.registerCommand("exampleCommand",null );
         NamedCommands.registerCommand("someOtherCommand", null );
+        
           configureButtonBindings();
+          autoChooser = AutoBuilder.buildAutoChooser("route");
+    
+        SmartDashboard.putData("Auto Chooser", autoChooser);
+        Command fb = new PathPlannerAuto("route");
+        autoChooser.addOption("Forward back", null);
+      
+
     // Configure default commands
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
@@ -186,34 +215,10 @@ FeedLauncher m_feedlauncher = new FeedLauncher();
     // // Run path following command, then stop at the end.
     // return swerveControllerCommand.andThen(() -> m_robotDrive.drive(0, 0, 0, false, false));
     
-AutoBuilder.configureHolonomic(
-      m_robotDrive::getPose, // Robot pose supplier
-      m_robotDrive::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-      m_robotDrive::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-      m_robotDrive::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-      new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-              new PIDConstants(5.0, 0.0, 0.0), // Translation PID constants
-              new PIDConstants(5.0, 0.0, 0.0), // Rotation PID constants
-              4.5, // Max module speed, in m/s
-              0.4, // Drive base radius in meters. Distance from robot center to furthest module.
-              new ReplanningConfig() // Default path replanning config. See the API for the options here
-      ),
-      () -> {
-          // Boolean supplier that controls when the path will be mirrored for the red alliance
-          // This will flip the path being followed to the red side of the field.
-          // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
-          var alliance = DriverStation.getAlliance();
-          if (alliance.isPresent()) {
-            return alliance.get() == DriverStation.Alliance.Red;
-          }
-          return false;
-        },
-      m_robotDrive // Reference to this subsystem to set requirements
-);
-//PathPlannerPath path = PathPlannerPath.fromPathFile("route");
     
+//PathPlannerPath path = PathPlannerPath.fromPathFile("route");
+//return new PathPlannerAuto("path");
 
-return new PathPlannerAuto("route");
-
+return autoChooser.getSelected();
   }
 }

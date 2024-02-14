@@ -28,7 +28,7 @@ public final class Constants {
   }
 
   public static final class Arm {
-    public static final int kArmCanId = 2;
+    public static final int kArmCanId = 19;
     public static final boolean kArmInverted = true;
     public static final int kCurrentLimit = 40;
 
@@ -57,7 +57,7 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final int kCanId = 1;
+    public static final int kCanId = 17;
     public static final boolean kMotorInverted = true;
     public static final int kCurrentLimit = 80;
 
@@ -72,8 +72,8 @@ public final class Constants {
   }
 
   public static final class Launcher {
-    public static final int kTopCanId = 3;
-    public static final int kBottomCanId = 4;
+    public static final int kTopCanId = 12;
+    public static final int kBottomCanId = 13;
 
     public static final int kCurrentLimit = 80;
 
