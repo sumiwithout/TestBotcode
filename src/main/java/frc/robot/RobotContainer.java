@@ -53,7 +53,7 @@ import com.revrobotics.ColorSensorV3.Register;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-
+   private final Field2d field;
 
 
   // The robot's subsystems
@@ -71,7 +71,21 @@ Autos auto = new Autos();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-
+  field = new Field2d();
+        SmartDashboard.putData("Field", field);
+        //  PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
+        //     // Do whatever you want with the pose here
+        //     field.setRobotPose(pose);
+        // });
+        // PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
+        //     // Do whatever you want with the pose here
+        //     field.getObject("target pose").setPose(pose);
+        // });
+        // PathPlannerLogging.setLogActivePathCallback((poses) -> {
+        //     // Do whatever you want with the poses here
+        //     field.getObject("path").setPoses(poses);
+        // });
+        field.setRobotPose(m_robotDrive.getPose());
 
     // NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
     //     NamedCommands.registerCommand("exampleCommand",null );

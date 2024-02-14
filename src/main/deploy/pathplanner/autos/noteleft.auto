@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2,
-      "y": 7.0
+      "x": 0.56,
+      "y": 6.77
     },
-    "rotation": 0
+    "rotation": 90.0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "F"
+            "pathName": "deposit"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "B"
+            "pathName": "pickupnoteblueleft"
           }
         }
       ]

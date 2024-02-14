@@ -1,11 +1,13 @@
 package frc.robot.commands;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,7 +18,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Autos {
   DriveSubsystem m_driveSubsystem  = DriveSubsystem.getInstance();
       private final SendableChooser<Command> autonChooser;
-        private final Field2d field;
+
       public Autos(){
 AutoBuilder.configureHolonomic(
       m_driveSubsystem::getPose, // Robot pose supplier
@@ -49,23 +51,11 @@ AutoBuilder.configureHolonomic(
         autonChooser = new SendableChooser<Command>();
          autonChooser.setDefaultOption("No-op", null);
          buildAuto("route");
+         buildAuto("noteleft");
       
        SmartDashboard.putData("Auton Chooser", autonChooser);
-      field = new Field2d();
 
-        SmartDashboard.putData("Field", field);
-         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
-            // Do whatever you want with the pose here
-            field.setRobotPose(pose);
-        });
-        PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-            // Do whatever you want with the pose here
-            field.getObject("target pose").setPose(pose);
-        });
-        PathPlannerLogging.setLogActivePathCallback((poses) -> {
-            // Do whatever you want with the poses here
-            field.getObject("path").setPoses(poses);
-        });
+     
        
       }
       public Command getSelected() {
