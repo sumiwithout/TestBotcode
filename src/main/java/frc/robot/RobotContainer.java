@@ -73,19 +73,18 @@ Autos auto = new Autos();
     // Configure the button bindings
   field = new Field2d();
         SmartDashboard.putData("Field", field);
-        //  PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
-        //     // Do whatever you want with the pose here
-        //     field.setRobotPose(pose);
-        // });
-        // PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
-        //     // Do whatever you want with the pose here
-        //     field.getObject("target pose").setPose(pose);
-        // });
-        // PathPlannerLogging.setLogActivePathCallback((poses) -> {
-        //     // Do whatever you want with the poses here
-        //     field.getObject("path").setPoses(poses);
-        // });
-        field.setRobotPose(m_robotDrive.getPose());
+         PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
+            // Do whatever you want with the pose here
+            field.setRobotPose(pose);
+        });
+        PathPlannerLogging.setLogTargetPoseCallback((pose) -> {
+            // Do whatever you want with the pose here
+            field.getObject("target pose").setPose(pose);
+        });
+        PathPlannerLogging.setLogActivePathCallback((poses) -> {
+            // Do whatever you want with the poses here
+            field.getObject("path").setPoses(poses);
+        });
 
     // NamedCommands.registerCommand("feedlaunchr", m_feedlauncher);
     //     NamedCommands.registerCommand("exampleCommand",null );

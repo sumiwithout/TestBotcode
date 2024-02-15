@@ -49,7 +49,8 @@ AutoBuilder.configureHolonomic(
 
 
         autonChooser = new SendableChooser<Command>();
-         autonChooser.setDefaultOption("No-op", null);
+        
+         autonChooser.setDefaultOption("route", null);
          buildAuto("route");
          buildAuto("noteleft");
       
