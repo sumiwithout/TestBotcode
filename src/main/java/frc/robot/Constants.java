@@ -23,6 +23,7 @@ import frc.lib.PIDGains;
 public final class Constants {
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
+     public static final int kdriver2 = 1;
     public static final double kDriveDeadband = 0.05;
     public static final double kTriggerButtonThreshold = 0.5;
   }
@@ -80,11 +81,19 @@ public final class Constants {
     public static final double kTopPower = 0.7;
     public static final double kBottomPower = 0.8;
   }
+  public static final class hang{
+     public static final int leftcanID = 40;
+      public static final int kCurrentLimit = 50;
+        public static final int rightcanID = 50;
+        public static final double speedup = 1;
+         public static final double speeddown = -1;
+        
+  }
 
   public static final class DriveConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double kMaxSpeedMetersPerSecond = 5.2;
+    public static final double kMaxSpeedMetersPerSecond = 4.8;
     public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
 
     public static final double kDirectionSlewRate = 1.2; // radians per second

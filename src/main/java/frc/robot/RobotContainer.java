@@ -31,6 +31,7 @@ import frc.robot.commands.FeedLauncher;
 import frc.robot.commands.Autos;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LauncherSubsystem;
 import frc.utils.GamepadUtils;
@@ -61,9 +62,11 @@ public class RobotContainer {
   public static final ArmSubsystem m_arm =  ArmSubsystem.getInstance();
   public static final IntakeSubsystem m_intake = IntakeSubsystem.getInstance();
   public static final LauncherSubsystem m_launcher = LauncherSubsystem.getInstance();
-
+public static final Hang m_hangleft = Hang.getleftInstance();
+private static final Hang m_righthang = Hang.getrightInstance();
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+   XboxController m_driverController2 = new XboxController(OIConstants.kdriver2);
 FeedLauncher m_feedlauncher = new FeedLauncher();
 Autos auto = new Autos();
 //private final SendableChooser<Command> autoChooser;
@@ -124,6 +127,8 @@ Autos auto = new Autos();
 
     // configure the launcher to stop when no other command is running
     m_launcher.setDefaultCommand(new RunCommand(() -> m_launcher.stopLauncher(), m_launcher));
+    m_hangleft.setDefaultCommand(new RunCommand(() -> m_hangleft.stopoff(), m_hangleft));
+    m_righthang.setDefaultCommand(new RunCommand(() -> m_righthang.stopoff(), m_righthang));
   }
 
   /**
@@ -161,11 +166,25 @@ Autos auto = new Autos();
         .whileTrue(new RunCommand(() -> m_intake.setPower(-1.0)));
 
     // launcher controls (button to pre-spin the launcher and button to launch)
-    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
+    new JoystickButton(m_driverController2, XboxController.Button.kA.value)
         .whileTrue(new RunCommand(() -> m_launcher.runLauncher(), m_launcher));
-
+      // hang code
+        new JoystickButton(m_driverController2,XboxController.Button.kLeftBumper.value)
+        .whileTrue(new RunCommand(()-> m_hangleft.turnon(), m_hangleft));
+        new JoystickButton(m_driverController2,XboxController.Button.kB.value)
+        .whileTrue(new RunCommand(()-> m_hangleft.goback(), m_hangleft));
+ new JoystickButton(m_driverController2,XboxController.Button.kRightBumper.value)
+        .whileTrue(new RunCommand(()-> m_righthang.turnon(), m_righthang));
+       new  JoystickButton(m_driverController2,XboxController.Button.kY.value)
+        .whileTrue(new RunCommand(()-> m_righthang.goback(), m_righthang));
+// regular code
     new JoystickButton(m_driverController, XboxController.Button.kA.value)
         .onTrue(m_intake.feedLauncher(m_launcher));
+        new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
+        .whileTrue(new RunCommand(
+            () -> m_robotDrive.setX(),
+            m_robotDrive));
+
   }
 
   /**
