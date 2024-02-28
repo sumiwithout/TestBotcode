@@ -74,7 +74,8 @@ Autos auto = new Autos();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-  field = new Field2d();
+    configureButtonBindings();
+    field = new Field2d();
         SmartDashboard.putData("Field", field);
          PathPlannerLogging.setLogCurrentPoseCallback((pose) -> {
             // Do whatever you want with the pose here
@@ -139,8 +140,7 @@ Autos auto = new Autos();
    */
   private void configureButtonBindings() {
     // button to put swerve modules in an "x" configuration to hold position
-
-    new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value)
+    new JoystickButton(m_driverController, XboxController.Button.kX.value)
         .whileTrue(new RunCommand(() -> m_robotDrive.setX(), m_robotDrive));
 
     // set up arm preset positions
@@ -181,10 +181,10 @@ Autos auto = new Autos();
 // regular code
     new JoystickButton(m_driverController, XboxController.Button.kA.value)
         .onTrue(m_intake.feedLauncher(m_launcher));
-        new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
-        .whileTrue(new RunCommand(
-            () -> m_robotDrive.setX(),
-            m_robotDrive));
+        // new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
+        // .whileTrue(new RunCommand(
+        //     () -> m_robotDrive.setX(),
+        //     m_robotDrive));
 
   }
 
