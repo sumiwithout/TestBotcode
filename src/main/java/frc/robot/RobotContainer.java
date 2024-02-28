@@ -174,7 +174,7 @@ Autos auto = new Autos();
         .whileTrue(new RunCommand(()-> m_hangleft.turnon(), m_hangleft));
         new JoystickButton(m_driverController2,XboxController.Button.kB.value)
         .whileTrue(new RunCommand(()-> m_hangleft.goback(), m_hangleft));
- new JoystickButton(m_driverController2,XboxController.Button.kRightBumper.value)
+    new JoystickButton(m_driverController2,XboxController.Button.kRightBumper.value)
         .whileTrue(new RunCommand(()-> m_righthang.turnon(), m_righthang));
        new  JoystickButton(m_driverController2,XboxController.Button.kY.value)
         .whileTrue(new RunCommand(()-> m_righthang.goback(), m_righthang));

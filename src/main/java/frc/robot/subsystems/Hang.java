@@ -11,9 +11,15 @@ public class Hang extends SubsystemBase {
     private CANSparkMax m_hang;
     private boolean isiton;
     private boolean goback;
-
+enum state{
+UP,
+DOWN,
+STOP,
+IDLE
+}
+state current = state.IDLE;
     private static final Hang m_hangleft = new Hang(Constants.hang.leftcanID,false);
-private static final Hang m_righthang = new Hang(Constants.hang.rightcanID, true);
+private static final Hang m_righthang = new Hang(Constants.hang.rightcanID, false);
     public static Hang getleftInstance(){
         return m_hangleft;
     }
@@ -25,6 +31,7 @@ private static final Hang m_righthang = new Hang(Constants.hang.rightcanID, true
      * @param ifreverse Since they will be side by side one will be reversed 
      */
     public Hang(int canID, boolean ifreverse ){
+       current = state.IDLE;
 m_hang = new CANSparkMax(canID, MotorType.kBrushless);
 m_hang.setInverted(ifreverse);
 m_hang.setSmartCurrentLimit(Constants.hang.kCurrentLimit);
@@ -35,27 +42,35 @@ goback = false;
     }
 
     public void turnon(){
-        isiton = true;
+     current = state.UP;
     }
     public void stopoff(){
-        isiton = false;
+      current = state.STOP;
 
     }
     public void goback(){
-        goback = true;
+        current = state.DOWN;
     }
     
     
     @Override
     public void periodic(){
-        if(isiton){
-            m_hang.set(Constants.hang.speedup);
-        }
-        else if(goback){
-             m_hang.set(Constants.hang.speeddown);
-        }
-        else{
+        switch (current) {
+            case UP:{
+                m_hang.set(Constants.hang.speedup);
+            }
+                break;
+            case DOWN:{
+                m_hang.set(Constants.hang.speeddown);
+            }
+                break;
+             case STOP:{
             m_hang.set(0);
+                }
+                break;
+        
+            default:
+                break;
         }
     }
 }
