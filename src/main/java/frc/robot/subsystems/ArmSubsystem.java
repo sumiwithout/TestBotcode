@@ -13,6 +13,7 @@ import com.revrobotics.SparkPIDController;
 import com.revrobotics.SparkRelativeEncoder;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.PIDGains;
 import frc.robot.Constants;
@@ -134,6 +135,16 @@ public class ArmSubsystem extends SubsystemBase {
   }
 
   @Override
-  public void periodic() { // This method will be called once per scheduler run
+  public void periodic() { 
+    SmartDashboard.putNumber("encoder", m_manualValue);
+    SmartDashboard.updateValues();
+    // This method will be called once per scheduler run
   }
+  public boolean isNearTarget() {
+    return Math.abs(m_encoder.getPosition() - m_setpoint)
+        < Constants.Intake.kPositionTolerance;
+
+  
+      }
+  
 }

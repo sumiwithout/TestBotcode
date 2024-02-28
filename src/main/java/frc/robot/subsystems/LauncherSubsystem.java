@@ -65,5 +65,7 @@ public static LauncherSubsystem getInstance(){
       m_topMotor.set(0.0);
       m_bottomMotor.set(0.0);
     }
+  m_topMotor.set(-Constants.Launcher.kTopPower);
+      m_bottomMotor.set(-Constants.Launcher.kBottomPower);
   }
 }

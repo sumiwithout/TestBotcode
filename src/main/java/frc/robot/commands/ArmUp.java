@@ -3,13 +3,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LauncherSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 public class ArmUp extends Command{
     private Timer m_timer;
     ArmSubsystem m_arm = ArmSubsystem.getInstance();
-    LauncherSubsystem m_launcher = LauncherSubsystem.getInstance();
     // help
     public ArmUp(){
       

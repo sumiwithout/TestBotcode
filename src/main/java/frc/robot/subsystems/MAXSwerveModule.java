@@ -10,6 +10,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkAbsoluteEncoder.Type;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -121,7 +123,15 @@ public class MAXSwerveModule {
         m_drivingEncoder.getVelocity(),
         new Rotation2d(m_turningEncoder.getPosition() - m_chassisAngularOffset));
   }
-
+  public void setcoast(){
+    m_drivingSparkMax.setIdleMode(IdleMode.kCoast);
+  }
+public void setbreak(){
+    m_drivingSparkMax.setIdleMode(IdleMode.kBrake);
+  }
+  public double getVelocity(){
+    return m_drivingEncoder.getVelocity();
+  }
   /**
    * Returns the current position of the module.
    *

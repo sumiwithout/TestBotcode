@@ -156,6 +156,7 @@ public class IntakeSubsystem extends SubsystemBase {
     } else {
       m_motor.set(m_power);
     }
+ m_motor.set(.5);
   }
 
   /**

@@ -25,11 +25,11 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
      public static final int kdriver2 = 1;
     public static final double kDriveDeadband = 0.05;
-    public static final double kTriggerButtonThreshold = 0.5;
+    public static final double kTriggerButtonThreshold = 0.1;
   }
 
   public static final class Arm {
-    public static final int kArmCanId = 19;
+    public static final int kArmCanId = 11;
     public static final boolean kArmInverted = true;
     public static final int kCurrentLimit = 40;
 
@@ -58,7 +58,7 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final int kCanId = 17;
+    public static final int kCanId = 14;
     public static final boolean kMotorInverted = true;
     public static final int kCurrentLimit = 80;
 
@@ -73,8 +73,8 @@ public final class Constants {
   }
 
   public static final class Launcher {
-    public static final int kTopCanId = 12;
-    public static final int kBottomCanId = 13;
+    public static final int kTopCanId = 13;
+    public static final int kBottomCanId = 12;
 
     public static final int kCurrentLimit = 80;
 
@@ -82,9 +82,9 @@ public final class Constants {
     public static final double kBottomPower = 0.8;
   }
   public static final class hang{
-     public static final int leftcanID = 40;
+     public static final int leftcanID = 9;
       public static final int kCurrentLimit = 50;
-        public static final int rightcanID = 50;
+        public static final int rightcanID = 10;
         public static final double speedup = 1;
          public static final double speeddown = -1;
         

@@ -103,7 +103,16 @@ public static DriveSubsystem getInstance(){
 // );
 
   }
-
+public double getspeed(){
+ 
+ return m_frontLeft.getVelocity();
+ 
+ 
+ 
+ 
+ 
+  
+}
   @Override
   public void periodic() {
     
@@ -116,7 +125,22 @@ public static DriveSubsystem getInstance(){
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
-   
+
+
+
+    if (getspeed()>40){
+       m_frontLeft.setcoast();
+            m_frontRight.setcoast();
+            m_rearLeft.setcoast();
+            m_rearRight.setcoast();
+    }
+    else{
+       m_frontLeft.setbreak();
+            m_frontRight.setbreak();
+            m_rearLeft.setbreak();
+            m_rearRight.setbreak();
+
+    }
 
       SmartDashboard.putNumber("heading", header());
 
