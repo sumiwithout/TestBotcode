@@ -107,6 +107,7 @@ public class ArmSubsystem extends SubsystemBase {
       m_targetState = m_profile.calculate(elapsedTime, m_startState, m_endState);
     }
 
+
     m_feedforward =
         Constants.Arm.kArmFeedforward.calculate(
             m_encoder.getPosition() + Constants.Arm.kArmZeroCosineOffset, m_targetState.velocity);
@@ -145,6 +146,9 @@ public class ArmSubsystem extends SubsystemBase {
         < Constants.Intake.kPositionTolerance;
 
   
+      }
+      public boolean isFinished(){
+return m_profile.isFinished(m_setpoint);
       }
   
 }

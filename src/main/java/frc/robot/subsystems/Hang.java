@@ -37,8 +37,6 @@ m_hang.setInverted(ifreverse);
 m_hang.setSmartCurrentLimit(Constants.hang.kCurrentLimit);
 m_hang.setIdleMode(IdleMode.kBrake);
 m_hang.burnFlash();
-isiton = false;
-goback = false;
     }
 
     public void turnon(){
@@ -46,7 +44,6 @@ goback = false;
     }
     public void stopoff(){
       current = state.STOP;
-
     }
     public void goback(){
         current = state.DOWN;
@@ -67,9 +64,6 @@ goback = false;
              case STOP:{
             m_hang.set(0);
                 }
-                break;
-        
-            default:
                 break;
         }
     }

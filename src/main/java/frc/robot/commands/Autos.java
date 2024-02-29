@@ -1,9 +1,12 @@
 package frc.robot.commands;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+import com.revrobotics.ColorSensorV3.Register;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,7 +16,13 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Autos {
   DriveSubsystem m_driveSubsystem  = DriveSubsystem.getInstance();
       private final SendableChooser<Command> autonChooser;
-
+     
+     
+      Intakelauncher intake = new Intakelauncher();
+      Retract retract = new Retract();
+      ArmDown armdown = new ArmDown();
+      ArmUp armup  = new ArmUp();
+    FeedLauncher feedLauncher = new FeedLauncher();
       public Autos(){
 AutoBuilder.configureHolonomic(
       m_driveSubsystem::getPose, // Robot pose supplier
@@ -44,7 +53,10 @@ AutoBuilder.configureHolonomic(
 
 
         autonChooser = new SendableChooser<Command>();
-        
+        NamedCommands.registerCommand("intake", intake.andThen(retract));
+        NamedCommands.registerCommand("armdown", armdown);
+        NamedCommands.registerCommand("armup", armup);
+        NamedCommands.registerCommand("feedlauncher", feedLauncher);
          autonChooser.setDefaultOption("route", null);
          buildAuto("route");
          buildAuto("noteleft");
