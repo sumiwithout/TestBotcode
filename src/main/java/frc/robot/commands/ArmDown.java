@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class ArmDown extends Command{
     private Timer m_timer;
     ArmSubsystem m_arm = ArmSubsystem.getInstance();
-    // help
+    
     public ArmDown(){
       
         addRequirements(m_arm);
