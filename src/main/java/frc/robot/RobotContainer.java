@@ -62,8 +62,10 @@ public class RobotContainer {
   public static final ArmSubsystem m_arm =  ArmSubsystem.getInstance();
   public static final IntakeSubsystem m_intake = IntakeSubsystem.getInstance();
   public static final LauncherSubsystem m_launcher = LauncherSubsystem.getInstance();
-public static final Hang m_hangleft = Hang.getleftInstance();
+//comment from here to 
+  public static final Hang m_hangleft = Hang.getleftInstance();
 private static final Hang m_righthang = Hang.getrightInstance();
+// here out press ctrl and / at the same time
   // The driver's controller
   XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
    XboxController m_driverController2 = new XboxController(OIConstants.kdriver2);
@@ -166,7 +168,7 @@ Autos auto = new Autos();
     // launcher controls (button to pre-spin the launcher and button to launch)
     new JoystickButton(m_driverController2, XboxController.Button.kA.value)
         .whileTrue(new RunCommand(() -> m_launcher.runLauncher(), m_launcher));
-      // hang code
+      // hang code so comment from here 
         new JoystickButton(m_driverController,XboxController.Button.kLeftBumper.value)
         .whileTrue(new RunCommand(()-> m_hangleft.turnon(), m_hangleft));
         new JoystickButton(m_driverController,XboxController.Button.kB.value)
@@ -175,6 +177,7 @@ Autos auto = new Autos();
         .whileTrue(new RunCommand(()-> m_righthang.turnon(), m_righthang));
        new  JoystickButton(m_driverController,XboxController.Button.kY.value)
         .whileTrue(new RunCommand(()-> m_righthang.goback(), m_righthang));
+        // to here out with the same method on top
 // regular code
     new JoystickButton(m_driverController2, XboxController.Button.kY.value)
         .onTrue(m_intake.feedLauncher(m_launcher));

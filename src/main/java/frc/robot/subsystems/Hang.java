@@ -18,7 +18,8 @@ STOP,
 IDLE
 }
 state current = state.IDLE;
-    private static final Hang m_hangleft = new Hang(Constants.hang.leftcanID,false);
+//comment from here    
+private static final Hang m_hangleft = new Hang(Constants.hang.leftcanID,false);
 private static final Hang m_righthang = new Hang(Constants.hang.rightcanID, false);
     public static Hang getleftInstance(){
         return m_hangleft;
@@ -26,6 +27,7 @@ private static final Hang m_righthang = new Hang(Constants.hang.rightcanID, fals
     public static Hang getrightInstance(){
         return m_righthang;
     }
+    // to here out highlight all of it  and press ctrl and / at the same time 
     /**
      * @param canID The CANID for the motor connected to the actuator
      * @param ifreverse Since they will be side by side one will be reversed 
