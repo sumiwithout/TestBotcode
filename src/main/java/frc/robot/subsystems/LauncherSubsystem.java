@@ -3,6 +3,12 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
+
+import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -12,11 +18,22 @@ public class LauncherSubsystem extends SubsystemBase {
   private CANSparkMax m_bottomMotor;
 
   private boolean m_launcherRunning;
+  private GenericEntry pow;
+  private double bottompow;
+
+
 private static final LauncherSubsystem m_launcher = new LauncherSubsystem();
 
 public static LauncherSubsystem getInstance(){
   return m_launcher;
 }
+enum state{
+  launchnormal,
+  DOWN,
+  StOP,
+  IDLE
+  }
+  state current = state.IDLE;
   /**
    * Creates a new LauncherSubsystem.
    */
@@ -45,25 +62,59 @@ public static LauncherSubsystem getInstance(){
    * Turns the launcher on.  Can be run once and the launcher will stay running or run continuously in a {@code RunCommand}.
    */
   public void runLauncher() {
-    m_launcherRunning = true;
+   current = state.launchnormal;
   }
 
   /**
    * Turns the launcher off.  Can be run once and the launcher will stay running or run continuously in a {@code RunCommand}.
    */
   public void stopLauncher() {
-    m_launcherRunning = false;
+  current = state.StOP;
+  }
+  public void amplaunch(){
+     current = state.DOWN;
   }
 
+
+
   @Override
-  public void periodic() {  // this method will be called once per scheduler run
+  public void periodic() {
+     SmartDashboard.updateValues();
+    // this method will be called once per scheduler run
     // set the launcher motor powers based on whether the launcher is on or not
-    if (m_launcherRunning) {
-      m_topMotor.set(Constants.Launcher.kTopPower);
-      m_bottomMotor.set(Constants.Launcher.kBottomPower);
-    } else {
-      m_topMotor.set(0.0);
-      m_bottomMotor.set(0.0);
+   switch ( current) {
+    case launchnormal:{
+       m_topMotor.set(Constants.Launcher.kTopPower);
+       m_bottomMotor.set(Constants.Launcher.kBottomPower);
     }
+    break;
+      case StOP:{
+        m_topMotor.set(0.0);
+      m_bottomMotor.set(0.0);
+      }
+      break;
+      case DOWN:{
+        m_topMotor.set(pow.getInteger(1));
+        m_bottomMotor.set(bottompow);
+      }
+
+   
+    default:
+      break;
+   }
+ Shuffleboard.getTab("topshooter").add("TOP SHOOTING SPEED",1).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+    pow = Shuffleboard.getTab("topshooter").add("TOP SHOOTING SPEED",1).withWidget(BuiltInWidgets.kNumberSlider).getEntry();
+
+bottompow =  SmartDashboard.getNumber("change the value of  the bottomshooter",0);
+     
+   
+   
+    // if (m_launcherRunning) {
+    //   m_topMotor.set(Constants.Launcher.kTopPower);
+    //   m_bottomMotor.set(Constants.Launcher.kBottomPower);
+    // } else {
+    //   m_topMotor.set(0.0);
+    //   m_bottomMotor.set(0.0);
+    // }
   }
 }

@@ -177,6 +177,10 @@ Autos auto = new Autos();
         .whileTrue(new RunCommand(()-> m_righthang.turnon(), m_righthang));
        new  JoystickButton(m_driverController,XboxController.Button.kY.value)
         .whileTrue(new RunCommand(()-> m_righthang.goback(), m_righthang));
+    new JoystickButton(m_driverController2, XboxController.Button.kB.value)
+        .whileTrue(new RunCommand(() -> m_intake.setPower(1)));
+         new JoystickButton(m_driverController2, XboxController.Button.kBack.value)
+        .whileTrue(new RunCommand(() -> m_launcher.amplaunch(), m_launcher));
         // to here out with the same method on top
 // regular code
     new JoystickButton(m_driverController2, XboxController.Button.kY.value)

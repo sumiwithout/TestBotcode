@@ -46,7 +46,13 @@ public class IntakeSubsystem extends SubsystemBase {
     m_targetPosition = m_encoder.getPosition();
     m_power = 0.0;
   }
-
+  enum state{
+    UP,
+    DOWN,
+    STOP,
+    IDLE
+    }
+    state current = state.IDLE;
   /**
    * Set the power to spin the motor at. This only applies outside of position mode.
    *
@@ -134,6 +140,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setTargetPosition(double target){
     m_targetPosition= target;
   }
+  public void faster(){
+    m_power = 1;
+  }
   
   public double getencoder(){
     return m_encoder.getPosition();
@@ -149,6 +158,7 @@ public class IntakeSubsystem extends SubsystemBase {
       m_positionMode = false;
       m_power = 0.0;
     }
+
 
     // update the motor power based on mode and setpoint
     if (m_positionMode) {
